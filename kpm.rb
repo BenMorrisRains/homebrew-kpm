@@ -5,9 +5,15 @@ class Kpm < Formula
   sha256 "9d9f1c3b712c751c966cd53ea0f910dfaf7ce2a11cb7fe347cc60cb73111aa47"
   license "MIT"
 
+  depends_on "gradle"
   depends_on "openjdk@17"
 
   def install
+    # Download Gradle wrapper if missing
+    unless File.exist?("gradle/wrapper/gradle-wrapper.jar")
+      system "gradle", "wrapper", "--gradle-version=8.5"
+    end
+    
     system "./gradlew", "installDist"
     
     # Install the distribution
