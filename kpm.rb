@@ -9,6 +9,9 @@ class Kpm < Formula
   depends_on "openjdk@17"
 
   def install
+    # Set JAVA_HOME to use the correct Java version
+    ENV["JAVA_HOME"] = Formula["openjdk@17"].opt_prefix
+    
     # Download Gradle wrapper if missing
     unless File.exist?("gradle/wrapper/gradle-wrapper.jar")
       system "gradle", "wrapper", "--gradle-version=8.5"
